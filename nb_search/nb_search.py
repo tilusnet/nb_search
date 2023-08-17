@@ -33,11 +33,12 @@ def search_util(root='.'):
     return nb_files
 
 
-def show_files(nb_files):
+def show_files(nb_files, uri_pfx=''):
     """Displays the final list of Jupyter notebook files
 
     Args:
         nb_files (list): List of queried Jupyter notebook files
+        uri_pfx (str, optional): prepend URI with this prefix; ignored for Colab
     """
     if len(nb_files) == 0:
         nb_files = nb_files
@@ -49,7 +50,7 @@ def show_files(nb_files):
             for fid,nbf in zip(fids, nb_files):
                 display(HTML(f"<a href=https://colab.research.google.com/drive/{fid} target=_blank>{os.path.split(nbf)[-1]}</a>"))
         else:
-            [display(HTML(f'<a href="{f}">{f}</a>')) for f in nb_files]
+            [display(HTML(f'<a href="{uri_pfx}{f}">{f}</a>')) for f in nb_files]
     
 
 def show_files_tags(nb_files,nb_tags,tag): # [due date (datetime)] optional description
